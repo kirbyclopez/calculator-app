@@ -1,7 +1,18 @@
 import React from "react";
+import AutoScaleText from "./AutoScaleText";
 
-const CalculatorDisplay = () => {
-  return <div>CalculatorDisplay</div>;
+interface Props {
+  value: string;
+}
+
+const CalculatorDisplay: React.FC<Props> = ({ value }: Props) => {
+  const formattedValue = 0;
+
+  return (
+    <div className="bg-black text-white w-[320px] h-[120px] p-2 flex">
+      <AutoScaleText>{formattedValue}</AutoScaleText>
+    </div>
+  );
 };
 
 export default CalculatorDisplay;
