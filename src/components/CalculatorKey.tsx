@@ -4,6 +4,7 @@ interface Props {
   className?: string;
   width?: string;
   align?: string;
+  color?: string;
   children: React.ReactNode;
 }
 
@@ -11,15 +12,17 @@ const CalculatorKey: React.FC<Props> = ({
   className,
   width,
   align,
+  color,
   children,
 }: Props) => {
   return (
     <div
       className={
         (className ? className : "") +
-        " cursor-pointer h-[80px] leading-[80px] border-gray-500 border-t border-r " +
-        (width ? width : "w-[80px]") +
-        (align ? " " + align : " text-center")
+        " cursor-pointer h-[70px] leading-[70px] m-[5px] border-0 rounded-full " +
+        (width ? width : "w-[70px]") +
+        (align ? " " + align : " text-center") +
+        (color ? " " + color : " text-white")
       }
     >
       {children}
