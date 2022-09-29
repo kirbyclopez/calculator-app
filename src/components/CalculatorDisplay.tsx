@@ -6,7 +6,7 @@ interface Props {
 }
 
 const CalculatorDisplay: React.FC<Props> = ({ value }: Props) => {
-  const formattedValue = 0;
+  const formattedValue = value;
 
   return (
     <div className="bg-black text-white w-[320px] h-[120px] p-2 flex">
