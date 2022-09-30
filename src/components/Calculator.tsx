@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { KeyboardEvent, useEffect, useState } from "react";
 import CalculatorDisplay from "./CalculatorDisplay";
 import CalculatorKey from "./CalculatorKey";
 
@@ -65,6 +65,7 @@ const Calculator: React.FC = () => {
       setFirstOperand("0");
       setSecondOperand("0");
       setOperator("");
+      setLastOperation("");
       setWaitingForOperand(false);
     } else {
       setDisplay("0");
@@ -95,10 +96,58 @@ const Calculator: React.FC = () => {
 
     if (currentValue === 0) return;
 
-    const newValue = parseFloat((currentValue / 100).toFixed(6));
+    const newValue = String(parseFloat((currentValue / 100).toFixed(6)));
 
-    setDisplay(String(newValue));
+    if (operator === "" || lastOperation === "=") setFirstOperand(newValue);
+    else setSecondOperand(newValue);
+
+    setDisplay(newValue);
   };
+
+  const handleKeyPress: any = (event: KeyboardEvent) => {
+    let key = event.key !== "Enter" ? event.key : "=";
+
+    switch (key) {
+      case "Backspace":
+        break;
+      case "Escape":
+        handleClear();
+        break;
+      case "0":
+      case "1":
+      case "2":
+      case "3":
+      case "4":
+      case "5":
+      case "6":
+      case "7":
+      case "8":
+      case "9":
+        handleInputDigit(parseInt(key));
+        break;
+      case ".":
+        handleDot();
+        break;
+      case "%":
+        handlePercent();
+        break;
+      case "/":
+      case "*":
+      case "-":
+      case "+":
+      case "=":
+        handleOperation(key);
+        break;
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [display, lastOperation]);
 
   return (
     <div className="flex flex-col shadow-2xl transition-all">

@@ -6,11 +6,13 @@ interface Props {
 }
 
 const CalculatorDisplay: React.FC<Props> = ({ value }: Props) => {
-  const formattedValue = value;
+  const numberWithCommas = (number: string) => {
+    return number.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   return (
     <div className="bg-black text-white w-[320px] h-[120px] p-2 flex">
-      <AutoScaleText>{formattedValue}</AutoScaleText>
+      <AutoScaleText>{numberWithCommas(value)}</AutoScaleText>
     </div>
   );
 };
