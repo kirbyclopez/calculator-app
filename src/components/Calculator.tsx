@@ -104,11 +104,21 @@ const Calculator: React.FC = () => {
     setDisplay(newValue);
   };
 
+  const handleBackspace = () => {
+    const newValue = display.substring(0, display.length - 1) || "0";
+
+    if (operator === "" || lastOperation === "=") setFirstOperand(newValue);
+    else setSecondOperand(newValue);
+
+    setDisplay(newValue);
+  };
+
   const handleKeyPress: any = (event: KeyboardEvent) => {
     let key = event.key !== "Enter" ? event.key : "=";
 
     switch (key) {
       case "Backspace":
+        handleBackspace();
         break;
       case "Escape":
         handleClear();
